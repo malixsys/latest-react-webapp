@@ -9,7 +9,6 @@ import { log } from '../utils';
 function createVendorDLL(bundleName, bundleConfig) {
   const dllConfig = config('bundles.client.devVendorDLL');
 
-  // $FlowFixMe
   const pkg = require(pathResolve(appRootDir.get(), './package.json'));
 
   const devDLLDependencies = dllConfig.include.sort();

@@ -1,14 +1,16 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 import { renderToString, renderToStaticMarkup } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { AsyncComponentProvider, createAsyncContext } from 'react-async-component';
+import { JobProvider, createJobContext } from 'react-jobs';
 import asyncBootstrapper from 'react-async-bootstrapper';
+import { Provider } from 'react-redux';
+import Helmet from 'react-helmet';
+import configureStore from '../../../shared/redux/configureStore';
 
 import config from '../../../config';
-
-import ServerHTML from './ServerHTML';
 import DemoApp from '../../../shared/components/DemoApp';
+import ServerHTML from './ServerHTML';
 
 /**
  * React application middleware, supports server side rendering.
@@ -36,18 +38,29 @@ export default function reactApplicationMiddleware(request, response) {
   }
 
   // Create a context for our AsyncComponentProvider.
-  const asyncComponentsContext = createAsyncContext();
+  const asyncContext = createAsyncContext();
 
   // Create a context for <StaticRouter>, which will allow us to
   // query for the results of the render.
   const reactRouterContext = {};
 
+  // Create the job context for our provider, this grants
+  // us the ability to track the resolved jobs to send back to the client.
+  const jobContext = createJobContext();
+
+  // Create the redux store.
+  const store = configureStore();
+
   // Declare our React application.
   const app = (
-    <AsyncComponentProvider asyncContext={asyncComponentsContext}>
-      <StaticRouter location={request.url} context={reactRouterContext}>
-        <DemoApp />
-      </StaticRouter>
+    <AsyncComponentProvider asyncContext={asyncContext}>
+      <JobProvider jobContext={jobContext}>
+        <StaticRouter location={request.url} context={reactRouterContext}>
+          <Provider store={store}>
+            <DemoApp />
+          </Provider>
+        </StaticRouter>
+      </JobProvider>
     </AsyncComponentProvider>
   );
 
@@ -56,13 +69,15 @@ export default function reactApplicationMiddleware(request, response) {
   asyncBootstrapper(app).then(() => {
     const appString = renderToString(app);
 
-    // Generate the html response.
     const html = renderToStaticMarkup(
       <ServerHTML
         reactAppString={appString}
         nonce={nonce}
         helmet={Helmet.rewind()}
-        asyncComponentsState={asyncComponentsContext.getState()}
+        storeState={store.getState()}
+        routerState={reactRouterContext}
+        jobsState={jobContext.getState()}
+        asyncComponentsState={asyncContext.getState()}
       />,
     );
 
@@ -74,15 +89,6 @@ export default function reactApplicationMiddleware(request, response) {
       return;
     }
 
-    response
-      .status(
-        reactRouterContext.missed
-          ? // If the renderResult contains a "missed" match then we set a 404 code.
-            // Our App component will handle the rendering of an Error404 view.
-            404
-          : // Otherwise everything is all good and we send a 200 OK status.
-            200,
-      )
-      .send(`<!DOCTYPE html>${html}`);
+    response.status(reactRouterContext.status || 200).send(`<!DOCTYPE html>${html}`);
   });
 }

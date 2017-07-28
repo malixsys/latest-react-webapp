@@ -13,7 +13,7 @@ import Error404 from './Error404';
 import Header from './Header';
 
 import AsyncHomeRoute from './AsyncHomeRoute';
-import AsyncCounterRoute from './AsyncCounterRoute';
+import AsyncPostsRoute from './AsyncPostsRoute';
 import AsyncAboutRoute from './AsyncAboutRoute';
 
 function DemoApp() {
@@ -104,18 +104,14 @@ function DemoApp() {
         */}
         <link
           rel="stylesheet"
-          href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic"
-        />
-        <link
-          rel="stylesheet"
-          href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css"
+          href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"
         />
       </Helmet>
       <Header />
       <div style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
         <Switch>
           <Route exact path="/" component={AsyncHomeRoute} />
-          <Route path="/counter" component={AsyncCounterRoute} />
+          <Route path="/posts" component={AsyncPostsRoute} />
           <Route path="/about" component={AsyncAboutRoute} />
           <Route component={Error404} />
         </Switch>

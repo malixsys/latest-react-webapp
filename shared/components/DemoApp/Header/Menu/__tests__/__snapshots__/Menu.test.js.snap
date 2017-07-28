@@ -21,9 +21,9 @@ exports[`<Home /> renders 1`] = `
   <li>
     <Link
       replace={false}
-      to="/counter"
+      to="/posts"
     >
-      Counter
+      Posts
     </Link>
   </li>
   <li>

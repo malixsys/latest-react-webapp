@@ -1,6 +1,7 @@
 import express from 'express';
 import createWebpackMiddleware from 'webpack-dev-middleware';
 import createWebpackHotMiddleware from 'webpack-hot-middleware';
+import FriendlyErrorsWebpackPlugin from 'friendly-errors-webpack-plugin';
 import ListenerManager from './listenerManager';
 import config from '../../config';
 import { log } from '../utils';
@@ -20,9 +21,19 @@ class HotClientServer {
     // eslint-disable-next-line no-unused-vars
     const [_, host, port] = httpPathRegex.exec(httpPath);
 
+    compiler.apply(new FriendlyErrorsWebpackPlugin());
+
     this.webpackDevMiddleware = createWebpackMiddleware(compiler, {
       quiet: true,
-      noInfo: true,
+      // noInfo: true,
+      stats: {
+        colors: true,
+        hash: false,
+        timings: true,
+        chunks: false,
+        chunkModules: false,
+        modules: false,
+      },
       headers: {
         'Access-Control-Allow-Origin': `http://${config('host')}:${config('port')}`,
       },

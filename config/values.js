@@ -73,8 +73,7 @@ const values = {
   htmlPage: {
     titleTemplate: 'React, Universally - %s',
     defaultTitle: 'React, Universally',
-    description:
-      'A starter kit giving you the minimum requirements for a production ready universal react application.',
+    description: 'A starter kit giving you the minimum requirements for a production ready universal react application.',
   },
 
   // Content Security Policy (CSP)
@@ -112,6 +111,24 @@ const values = {
 
   // These extensions are tried when resolving src files for our bundles..
   bundleSrcTypes: ['js', 'jsx', 'json'],
+
+  // Additional asset types to be supported for our bundles.
+  // i.e. you can import the following file types within your source and the
+  // webpack bundling process will bundle them with your source and create
+  // URLs for them that can be resolved at runtime.
+  bundleAssetTypes: [
+    'jpg',
+    'jpeg',
+    'png',
+    'gif',
+    'ico',
+    'eot',
+    'svg',
+    'ttf',
+    'woff',
+    'woff2',
+    'otf',
+  ],
 
   // What should we name the json output file that webpack generates
   // containing details of all output files for a bundle?
@@ -199,6 +216,10 @@ const values = {
           'react-dom',
           'react-helmet',
           'react-router-dom',
+          'redux',
+          'react-redux',
+          'redux-thunk',
+          'axios',
         ],
 
         // The name of the vendor DLL.
