@@ -1,26 +1,10 @@
 {
-  "name": "react-universally",
-  "version": "13.0.0",
-  "description": "A starter kit for universal react applications.",
+  "name": "latest-react-webapp",
+  "version": "1.0.0",
+  "description": "An example of hot reloading universal React/Express App",
   "main": "build/server/index.js",
   "engines": {
     "node": ">=6"
-  },
-  "scripts": {
-    "analyze:client": "babel-node internal/scripts/analyze --client",
-    "analyze:server": "babel-node internal/scripts/analyze --server",
-    "build": "babel-node internal/scripts/build --optimize",
-    "build:dev": "babel-node internal/scripts/build",
-    "clean": "cross-env babel-node internal/scripts/clean",
-    "deploy": "babel-node internal/scripts/deploy",
-    "dev": "cross-env DEPLOYMENT=development babel-node internal/development",
-    "lint": "eslint client server shared config internal",
-    "precommitz": "lint-staged",
-    "preinstall": "node internal/scripts/preinstall",
-    "prepush": "jest",
-    "start": "cross-env NODE_ENV=production node build/server",
-    "test": "jest",
-    "test:coverage": "jest --coverage"
   },
   "lint-staged": {
     "*.js": [
@@ -30,18 +14,22 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx}"
+      "src/**/*.{js,jsx}",
+      "shared/**/*.{js,jsx}"
     ],
     "snapshotSerializers": [
       "<rootDir>/node_modules/enzyme-to-json/serializer"
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/(build|internal|node_modules|public)/"
-    ]
+    ],
+    "moduleNameMapper": {
+      "\\.(scss)$": "identity-obj-proxy"
+    }
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ctrlplusb/react-universally.git"
+    "url": "git+https://github.com/malixsys/latest-react-webapp.git"
   },
   "keywords": [
     "react",
@@ -54,12 +42,13 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ctrlplusb/react-universally/issues"
+    "url": "https://github.com/malixsys/latest-react-webapp/issues"
   },
-  "homepage": "https://github.com/ctrlplusb/react-universally#readme",
+  "homepage": "https://github.com/malixsys/latest-react-webapp/issues",
   "dependencies": {
     "app-root-dir": "1.0.2",
     "axios": "0.16.1",
+    "classnames": "2.2.5",
     "colors": "1.1.2",
     "compression": "1.6.2",
     "cross-env": "4.0.0",
@@ -68,7 +57,7 @@
     "helmet": "3.5.0",
     "hpp": "0.2.2",
     "modernizr": "3.5.0",
-    "normalize.css": "6.0.0",
+    "normalize.css": "^7.0.0",
     "offline-plugin": "4.7.0",
     "prop-types": "15.5.8",
     "react": "15.5.4",
@@ -101,7 +90,8 @@
     "babel-preset-stage-3": "6.24.1",
     "babel-template": "6.24.1",
     "chokidar": "1.6.1",
-    "css-loader": "0.28.0",
+    "classnames-loader": "2.0.0",
+    "css-loader": "^0.28.1",
     "enzyme": "2.8.2",
     "enzyme-to-json": "1.5.1",
     "eslint": "3.19.0",
@@ -116,11 +106,17 @@
     "happypack": "3.0.3",
     "html-webpack-plugin": "2.28.0",
     "husky": "0.13.3",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "19.0.2",
     "lint-staged": "3.4.0",
     "md5": "2.2.1",
     "modernizr-loader": "1.0.1",
     "node-notifier": "5.1.2",
+    "node-sass": "^4.5.3",
+    "postcss-cssnext": "^3.0.2",
+    "postcss-import": "^10.0.0",
+    "postcss-loader": "^2.0.6",
+    "postcss-simple-vars": "^4.0.0",
     "prettier": "1.2.2",
     "prettier-eslint": "5.1.0",
     "prettier-eslint-cli": "3.4.1",
@@ -129,14 +125,32 @@
     "react-test-renderer": "15.5.4",
     "regenerator-runtime": "0.10.3",
     "rimraf": "2.6.1",
+    "sass-loader": "^6.0.5",
+    "semantic-ui-react": "^0.71.2",
     "semver": "^5.3.0",
     "source-map-support": "0.4.14",
-    "style-loader": "0.16.1",
+    "style-loader": "^0.17.0",
     "webpack": "2.4.1",
     "webpack-bundle-analyzer": "2.4.0",
     "webpack-dev-middleware": "1.10.1",
     "webpack-hot-middleware": "2.18.0",
     "webpack-md5-hash": "0.0.5",
     "webpack-node-externals": "1.6.0"
+  },
+  "scripts": {
+    "analyze:client": "babel-node internal/scripts/analyze --client",
+    "analyze:server": "babel-node internal/scripts/analyze --server",
+    "build": "babel-node internal/scripts/build --optimize",
+    "build:dev": "babel-node internal/scripts/build",
+    "clean": "babel-node internal/scripts/clean",
+    "deploy": "babel-node internal/scripts/deploy",
+    "dev": "DEPLOYMENT=development babel-node internal/development",
+    "lint": "eslint client server shared config internal",
+    "precommitz": "lint-staged",
+    "preinstall": "node internal/scripts/preinstall",
+    "prepush": "jest",
+    "start": "NODE_ENV=production node build/server",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   }
 }

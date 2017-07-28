@@ -26,11 +26,11 @@ function registerEnvFile() {
   const envFileResolutionOrder = removeNil([
     // Is there an environment config file at the app root?
     // This always takes preference.
-    // e.g. /projects/react-universally/.env
+    // e.g. /projects/latest-react-webapp/.env
     path.resolve(appRootDir.get(), envFile),
     // Is there an environment config file at the app root for our target
     // environment name?
-    // e.g. /projects/react-universally/.env.staging
+    // e.g. /projects/latest-react-webapp/.env.staging
     ifElse(DEPLOYMENT)(path.resolve(appRootDir.get(), `${envFile}.${DEPLOYMENT}`)),
   ]);
 

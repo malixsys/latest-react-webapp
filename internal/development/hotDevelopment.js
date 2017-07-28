@@ -77,7 +77,7 @@ class HotDevelopment {
       usesDevVendorDLL(config('bundles.client'))
         ? createVendorDLL('client', config('bundles.client'))
         : true,
-    )
+      )
       // Then start the client development server.
       .then(
         () =>
@@ -107,7 +107,7 @@ class HotDevelopment {
     // First the hot client server.
     return (
       safeDisposer(this.hotClientServer)
-        // Then dispose the hot node server(s).
+      // Then dispose the hot node server(s).
         .then(() => Promise.all(this.hotNodeServers.map(safeDisposer)))
     );
   }

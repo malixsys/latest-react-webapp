@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Home /> renders 1`] = `
+<Menu
+  fixed="top"
+  pointing={true}
+  secondary={true}
+>
+  <MenuItem
+    header={true}
+  >
+    APP_TITLE
+  </MenuItem>
+  <MenuItem
+    as={[Function]}
+    name="Home"
+    to="/"
+  />
+  <MenuItem
+    as={[Function]}
+    name="posts"
+    to="/posts"
+  >
+    Posts
+  </MenuItem>
+  <MenuMenu
+    position="right"
+  >
+    <MenuItem
+      as={[Function]}
+      name="About"
+      to="/about"
+    />
+  </MenuMenu>
+</Menu>
+`;

@@ -18,18 +18,18 @@ const values = {
     welcomeMessage: true,
     // We only need to expose the enabled flag of the service worker.
     serviceWorker: {
-      enabled: true,
+      enabled: true
     },
     // We need to expose all the polyfill.io settings.
-    polyfillIO: true,
+    polyfillIO: false,
     // We need to expose all the htmlPage settings.
-    htmlPage: true,
+    htmlPage: true
   },
 
   // The host on which the server should run.
   host: EnvVars.string('HOST', '0.0.0.0'),
   // The port on which the server should run.
-  port: EnvVars.number('PORT', 1337),
+  port: EnvVars.number('PORT', 3000),
 
   // The port on which the client bundle development server should run.
   clientDevServerPort: EnvVars.number('CLIENT_DEV_PORT', 7331),
@@ -56,24 +56,24 @@ const values = {
   // as the polyfill needs to be loaded BEFORE any of our other javascript
   // gets parsed.
   polyfillIO: {
-    enabled: true,
+    enabled: false,
     url: '//cdn.polyfill.io/v2/polyfill.min.js',
     // Reference https://qa.polyfill.io/v2/docs/features for a full list
     // of features.
     features: [
       // The default list.
       'default',
-      'es6',
-    ],
+      'es6'
+    ]
   },
 
   // Basic configuration for the HTML page that hosts our application.
   // We make use of react-helmet to consume the values below.
   // @see https://github.com/nfl/react-helmet
   htmlPage: {
-    titleTemplate: 'React, Universally - %s',
-    defaultTitle: 'React, Universally',
-    description: 'A starter kit giving you the minimum requirements for a production ready universal react application.',
+    titleTemplate: 'APP_TITLE - %s',
+    defaultTitle: 'APP_TITLE',
+    description: 'A starter kit giving you the minimum requirements for a production ready universal react application.'
   },
 
   // Content Security Policy (CSP)
@@ -90,12 +90,11 @@ const values = {
     scriptSrc: [
       // Allow scripts from cdn.polyfill.io so that we can import the
       // polyfill.
-      'cdn.polyfill.io',
+      'cdn.polyfill.io'
     ],
     styleSrc: [
-      'cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css',
-      'fonts.googleapis.com/css',
-    ],
+      'fonts.googleapis.com/css'
+    ]
   },
 
   // Path to the public assets that will be served off the root of the
@@ -127,7 +126,7 @@ const values = {
     'ttf',
     'woff',
     'woff2',
-    'otf',
+    'otf'
   ],
 
   // What should we name the json output file that webpack generates
@@ -144,7 +143,7 @@ const values = {
     /\.(eot|woff|woff2|ttf|otf)$/,
     /\.(svg|png|jpg|jpeg|gif|ico)$/,
     /\.(mp4|mp3|ogg|swf|webp)$/,
-    /\.(css|scss|sass|sss|less)$/,
+    /\.(css|scss|sass|sss|less)$/
   ],
 
   // Note: you can only have a single service worker instance.  Our service
@@ -166,10 +165,10 @@ const values = {
       // You may or may not want to be including these assets.  Feel free
       // to remove this or instead include only a very specific set of
       // assets.
-      './**/*',
+      './**/*'
     ],
     // Offline page file name.
-    offlinePageFileName: 'offline.html',
+    offlinePageFileName: 'offline.html'
   },
 
   bundles: {
@@ -184,7 +183,7 @@ const values = {
         // The service worker offline page generation needs access to the
         // config folder.  Don't worry we have guards within the config files
         // to ensure they never get included in a client bundle.
-        './config',
+        './config'
       ],
 
       // Where does the client bundle output live?
@@ -219,12 +218,12 @@ const values = {
           'redux',
           'react-redux',
           'redux-thunk',
-          'axios',
+          'axios'
         ],
 
         // The name of the vendor DLL.
-        name: '__dev_vendor_dll__',
-      },
+        name: '__dev_vendor_dll__'
+      }
     },
 
     server: {
@@ -235,8 +234,8 @@ const values = {
       srcPaths: ['./server', './shared', './config'],
 
       // Where does the server bundle output live?
-      outputPath: './build/server',
-    },
+      outputPath: './build/server'
+    }
   },
 
   additionalNodeBundles: {
@@ -320,8 +319,8 @@ const values = {
       */
 
       return webpackConfig;
-    },
-  },
+    }
+  }
 };
 
 // This protects us from accidentally including this configuration in our

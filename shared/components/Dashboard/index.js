@@ -8,6 +8,7 @@ import Helmet from 'react-helmet';
 import config from '../../../config';
 
 import './globals.css';
+import styles from './styles.scss';
 
 import Error404 from './Error404';
 import Header from './Header';
@@ -16,9 +17,9 @@ import AsyncHomeRoute from './AsyncHomeRoute';
 import AsyncPostsRoute from './AsyncPostsRoute';
 import AsyncAboutRoute from './AsyncAboutRoute';
 
-function DemoApp() {
+function Dashboard() {
   return (
-    <div style={{ padding: '2rem' }}>
+    <div className={styles.app}>
       <Helmet>
         <html lang="en" />
         <title>{config('htmlPage.defaultTitle')}</title>
@@ -96,19 +97,13 @@ function DemoApp() {
         <meta name="msapplication-wide310x150logo" content="/favicons/mstile-310x150.png" />
         <meta name="msapplication-square310x310logo" content="/favicons/mstile-310x310.png" />
         <link rel="manifest" href="/manifest.json" />
-
-        {/*
-          NOTE: This is simply for quick and easy styling on the demo. Remove
-          this and the related items from the Content Security Policy in the
-          global config if you have no intention of using milligram.
-        */}
         <link
           rel="stylesheet"
-          href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"
+          href="/semantic.2.2.11.min.css"
         />
       </Helmet>
       <Header />
-      <div style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
+      <div className={styles.wrapper}>
         <Switch>
           <Route exact path="/" component={AsyncHomeRoute} />
           <Route path="/posts" component={AsyncPostsRoute} />
@@ -120,4 +115,4 @@ function DemoApp() {
   );
 }
 
-export default DemoApp;
+export default Dashboard;
